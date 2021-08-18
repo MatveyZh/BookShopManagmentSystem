@@ -25,9 +25,43 @@ public class Users extends javax.swing.JFrame {
      */
     public Users() {
         initComponents();
+        UserIdTb.setEditable(false);
         displayUsers();
+       
+        
     }
+    
+    Statement St1=null;
+    ResultSet Rs1=null;
+      private void countRow()
+    {
+        try
+        {
 
+              Con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bookshop","root","1234");
+               St1=Con.createStatement();
+             
+               
+              Rs1=St1.executeQuery("select UID from bookshop.usertbl order by UID DESC  LIMIT 1");
+            Rs1.next();
+            int id=Rs1.getInt(1)+1;
+            St1.close();
+            Rs1.close();
+            UserIdTb.setText(id+"");
+            Con.close();
+            
+        }
+catch(Exception e)
+{
+    e.printStackTrace();
+}
+        
+    
+    }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -204,14 +238,14 @@ public class Users extends javax.swing.JFrame {
 
         jLabel10.setText("UsersList");
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\каво\\Desktop\\C2kjxxwXUAEYktB.png")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookshop/exit.png"))); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel13MouseClicked(evt);
             }
         });
 
-        LogoutBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\каво\\Desktop\\назад.png")); // NOI18N
+        LogoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookshop/back.png"))); // NOI18N
         LogoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LogoutBtnMouseClicked(evt);
@@ -356,8 +390,8 @@ public class Users extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LogoutBtn)
-                            .addComponent(PrintUsersBtn))))
+                            .addComponent(PrintUsersBtn)
+                            .addComponent(LogoutBtn))))
                 .addGap(32, 32, 32))
         );
 
@@ -414,6 +448,10 @@ public class Users extends javax.swing.JFrame {
                St=Con.createStatement();
                Rs=St.executeQuery("select * from bookshop.usertbl");
            UsersTable.setModel(DbUtils.resultSetToTableModel(Rs));
+           Rs.close();
+           St.close();
+           Con.close();
+            countRow();
         }
         catch(Exception e)
                 {
@@ -425,7 +463,7 @@ public class Users extends javax.swing.JFrame {
       
       private void reset()
       {
-          UserIdTb.setText("");
+          //UserIdTb.setText("");
            NameTb.setText(""); 
            PhoneTb.setText("");
             AddressTb.setText("");
@@ -571,9 +609,10 @@ try
                       Delete.executeUpdate(Query);
                        
                          JOptionPane.showMessageDialog(this,"User deleted");
+                           Con.close();
                          displayUsers();
                          reset();
-                         Con.close();
+                       
                       
                     } catch(Exception e)
                     {
@@ -599,9 +638,10 @@ try
                       Delete.executeUpdate(Query);
                        
                          JOptionPane.showMessageDialog(this,"Uesr edited");
+                           Con.close();
                          displayUsers();
                          reset();
-                         Con.close();
+                       
                       
                     } catch(Exception e)
                     {

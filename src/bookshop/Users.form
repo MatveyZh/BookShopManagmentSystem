@@ -180,8 +180,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="LogoutBtn" min="-2" max="-2" attributes="0"/>
                           <Component id="PrintUsersBtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="LogoutBtn" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -371,7 +371,7 @@
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\&#x43a;&#x430;&#x432;&#x43e;\Desktop\C2kjxxwXUAEYktB.png"/>
+          <Image iconType="3" name="/bookshop/exit.png"/>
         </Property>
       </Properties>
       <Events>
@@ -381,7 +381,7 @@
     <Component class="javax.swing.JLabel" name="LogoutBtn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\&#x43a;&#x430;&#x432;&#x43e;\Desktop\&#x43d;&#x430;&#x437;&#x430;&#x434;.png"/>
+          <Image iconType="3" name="/bookshop/back.png"/>
         </Property>
       </Properties>
       <Events>

@@ -188,14 +188,14 @@ public class Biling extends javax.swing.JFrame {
         FinalLb.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         FinalLb.setText("Total");
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\каво\\Desktop\\C2kjxxwXUAEYktB.png")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookshop/exit.png"))); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel13MouseClicked(evt);
             }
         });
 
-        LogoutBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\каво\\Desktop\\назад.png")); // NOI18N
+        LogoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookshop/back.png"))); // NOI18N
         LogoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LogoutBtnMouseClicked(evt);
@@ -461,7 +461,9 @@ int stock=0;
 
               Con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bookshop","root","1234");
                St1=Con.createStatement();
-               Rs1=St1.executeQuery("select * from bookshop.billtbl order by BNUM DESC FETCH FIRST 1 ROWS ONLY");
+              //  Rs1=St1.executeQuery("SELECT LAST INSERT id from bookshop.billtbl");
+               
+              Rs1=St1.executeQuery("select BNUM from bookshop.billtbl order by BNUM DESC  LIMIT 1");
             Rs1.next();
             int id=Rs1.getInt(1)+1;
             BillIdTb.setText(id+"");
@@ -512,7 +514,7 @@ catch(Exception e)
         BookTitleTb.setText("");
         PriceTb.setText("");
         QuanityTb.setText("");
-       // ClientNameTb.setText("");
+      
        
 
         
@@ -522,7 +524,7 @@ catch(Exception e)
     
     public void saveBill()
     {
-                        BillIdTb.setText("2");                    
+                                           
         if (BillIdTb.getText().isEmpty()||  ClientNameTb.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(this,"Missing info");
@@ -542,6 +544,7 @@ catch(Exception e)
                          
                          int row=add.executeUpdate();
                          JOptionPane.showMessageDialog(this,"Bill saved");
+                         countRow();
                        
                      
                     } catch(Exception e)
@@ -561,8 +564,9 @@ catch(Exception e)
          BillTxt.print();
          saveBill();
          reset();
-          BillTxt.setText("");
+         BillTxt.setText("");
          i=0;
+         ClientNameTb.setText("");
          FinalLb.setText("Total");
          
      } catch(Exception e)
